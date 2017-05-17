@@ -121,6 +121,7 @@ GEM
       ethon (>= 0.8.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    wdm (0.1.1)
     yajl-ruby (1.2.1)
 
 PLATFORMS
@@ -131,6 +132,10 @@ DEPENDENCIES
   jekyll
   redcarpet
   rouge (~> 1.3.0)
+  wdm (>= 0.1.0)
+
+RUBY VERSION
+   ruby 2.2.3p173
 
 BUNDLED WITH
-   1.10.6
+   1.13.2
