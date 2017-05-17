@@ -24,8 +24,5 @@ permalink: /:year/:month/:title #pretty
 #paginate_path: 'page:num'
 
 # Markdown library
-markdown: redcarpet
-extensions: ['fenced_code_blocks', 'smart']
-
-highlighter: rouge
+markdown: kramdown
 
