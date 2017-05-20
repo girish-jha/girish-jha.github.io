@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Using StructureMap for implementing stratagy pattern 
-permalink: StructureMapAttributeForStrategyPattern/
+#permalink: StructureMapAttributeForStrategyPattern/
 description: Some Description
 date: 2017-05-17 09:17:33 +05:30
 tags: "some tags here"
@@ -50,9 +50,9 @@ class MyRegistry : Registry
 This is very  clean way of  injecting dependency. But it has it's own downsides. The constructor parameter is not clearly telling about the dependencies of the class.
 Moreover testing of the class will be little bit clumsy.
 
-### Solution
+## Solution
 
-#### Through Registry changes
+### Through Registry changes
 
 We can solve this by injecting the actual dependency and in the StructureMap registry we can configure how to inject the required dependency by calling the strategy.
 
@@ -86,38 +86,44 @@ class MyRegistry : Registry
 ```
 As the lambda provided in the `.Is(_ => _.GetInstance("Strategy2").GetDependency())` will be called at the runtime, the `GetDependency` method will called only at the runtime and your correct object will be injected in the `DependentClass`.
 
+### Through StructureMapAttribute
 
+`StructureMapAttribute` is an effective way to provide the registration convention. More about it can be read [here](http://structuremap.github.io/registration/attributes/).
 
-To solve these we can take help of `StructureMapAttribute`. With the help of `StructureMapAttribute` we will create an attribute and decorate the attribute on the constructor parameter with and instanceKey.
+We can take help of `StructureMapAttribute`. We will create an attribute and decorate the attribute on the constructor parameter with and instanceKey.
 
+I am making use of `HttpContext.Current.Items` assuming we are wring code for a web application and making use of `nestedContainers`. 
+Our attribute will look like this:
 ```csharp
 public class InjectStratagyAttribute : StructureMapAttribute
 {
-    private IContainer Container => (IContainer)HttpContext.Current.Items["container"];
+    private IContainer _container => (IContainer)HttpContext.Current.Items["container"];
     public string Key { get; set; }
     public override void Alter(IConfiguredInstance instance, ParameterInfo parameter)
     {
-        instance.Dependencies.AddForConstructorParameter(parameter, Container.GetInstance<IStratagy>(Key).GetInstance()); 
+        instance.Dependencies.AddForConstructorParameter(parameter, _container.GetInstance<IStratagy>(Key).GetDependency()); 
     }
 }
 ```
+Notice that we are using a public property `Key` in our attribute. This will be assigned by the `DependentClass` to get the right instance of `IStratagy` interface.
+The registration for `IStratagy` should be done in normal fashion. 
 
-Now to use this we will decorate the attribute on the constructor parameter:
-
+Now decorate the attribute on the constructor parameter: 
 ```csharp
 public class DependentClass
 {
     private readonly IDependency _value;
-
-    public DependentClass([InjectStratagy(Key = "String2")] IDependency value)
+    public DependentClass([InjectStratagy(Key = "Stratagy2")] IDependency value)
     {
         _value = value;
     }
-
-    
 }
 
 ```
+
+With this, whenever we try to get the instance of dependent class, StructureMap will call the `Alter` method of our `InjectStratagyAttribute` before calling the constructor and update rest of the behaviour will follow according to the code we write.
+
+_It's important to note here that using classes and methods of a library(`StructureMapAttribute` in this case) inside our code violates the Dependency Inversion principle and makes it tough if you decide to change the library in future. That being said, `StructureMapAttribute` is a very powerful tool to manage(by bringing one off changes to) the object resgistration convention._
 
 
 

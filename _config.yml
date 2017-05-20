@@ -9,6 +9,8 @@ author:
   name:       Girish Jha
   url:        /about/ 
 
+permalink: /:year/:month/:title #pretty
+
 # Gems
 gems:
   - jekyll-paginate
