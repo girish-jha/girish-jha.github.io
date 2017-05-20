@@ -1,28 +1,17 @@
-# Jekyll configuration precedence:
-# 1. Gruntfile task
-# 2. config.build.yml
-# 3. config.yml
+# Setup
+title:        From Caffeine to code
+tagline:      A coding blog
+baseurl:      ""
+paginate:     1
 
-name: girish-jha.gitgub.io
-description: Prgrammers
+# About/contact
 author:
-  name: Girish Jha
-  email: giri.nitp@gmail.com
+  name:       Girish Jha
+  url:        /about/ 
 
-# Grunt handles images and assets.
-exclude: ['img', 'css', 'js', 'fonts',
-          '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
+# Gems
+gems:
+  - jekyll-paginate
 
-include: ['.htaccess']
-
-# _config.build.yml sets future and show_drafts to false on `grunt build`
-future: true
-show_drafts: true
-
-permalink: /:year/:month/:title #pretty
-#paginate: 10
-#paginate_path: 'page:num'
-
-# Markdown library
+#Others
 markdown: kramdown
-
