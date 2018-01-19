@@ -43,5 +43,5 @@ node_modules
 .ruby-gemset
 .rvmrc
 _site/**/*.*
-_site/index.html
-_site/Gemfile
+_site/
+Gemfile.lock
