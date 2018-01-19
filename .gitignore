@@ -44,13 +44,14 @@ node_modules
 .ruby-gemset
 .rvmrc
 _site/**/*.*
-_site/
-Gemfile.lock
-=======
 _site
-.bundle
-.sass-cache
+Gemfile.lock
 Gemfile.lock
 .DS_Store
 .vscode
->>>>>>> 85643b3a79e6c5ceec1a442e917b603297776b1e
+
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+_site/index.html

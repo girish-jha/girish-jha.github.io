@@ -12,8 +12,11 @@ author:
 permalink: /:year/:month/:title #pretty
 
 # Gems
-gems:
+plugins:
   - jekyll-paginate
 
 #Others
 markdown: kramdown
+
+exclude:
+  - README.md
