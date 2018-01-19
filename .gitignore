@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # .gitignore for Yeoman-Jekyll projects
 
 # Ignore hidden folders #
@@ -45,3 +46,11 @@ node_modules
 _site/**/*.*
 _site/
 Gemfile.lock
+=======
+_site
+.bundle
+.sass-cache
+Gemfile.lock
+.DS_Store
+.vscode
+>>>>>>> 85643b3a79e6c5ceec1a442e917b603297776b1e

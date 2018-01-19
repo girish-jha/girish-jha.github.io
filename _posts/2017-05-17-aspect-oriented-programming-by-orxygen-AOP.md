@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Aspect oriented programmming with oxygen AOP 
-permalink: AOP-With-OxygenAOP/
+#permalink: AOP-With-OxygenAOP/
 description: Some Description
 date: 2017-05-17 09:17:33 +05:30
 tags: "some tags here"
