@@ -3,24 +3,25 @@ layout: post
 title:  "Unit testing with jasmine and karma"
 categories: TDD
 ---
+# Unit testing with jasmine and karma
 
-### Why?
+## Why?
 
 Probably because your manager asked you to do so. But we need to see beyond that. We as developers, want the code we have written to work, and nothing can be more rewarding than being confident about the code we have just written.
 Unit tests are just the tool to give a quick feedback of the same. In a setup where we don't write unit tests, we have to run the application to find if it is working or we have broken something totally unrelated. Unit tests can come in handy there.
 Please don't get me wrong here, I am not saying that we can skip the functional testing of the application. That's completely unavoidable. But with proper unit tests in place, number of times we test the application functionally(manually) reduces. We do not have to test(manually) the application for each line of code we have written. That part is taken care of by the unit tests we have written. Moreover as the unit tests are run by the computer, we can configure it to run the unit tests against the whole codeBase on change of each line. This will make sure that any change we are making has not broken anything else.
 
-### How?
+## How?
 
 For unit testing javascript we will be discussing jasmine as the test framework and karma as the test runner.
 To understand what it is, we can think of jasmine as a library which provides us several functions to make unit testing easier. Karma is an app, which runs the jasmine tests. Karma is a Node.Js app.
 
-### Setup
+## Setup
 
 From the above you must have got the hint that we need to have Node.Js, karma and jasmine for our tests to run. We have a few more things to start. So lets install all the things first.
 
 <ol>
-    <li>Install Node.js. Once installed, to check the installation you can use follwing command in your command prompt:
+    <li>Install Node.js. Once installed, to check the installation you can use following command in your command prompt:
 <code>node -v</code>and it must return you the version of nodejs installed. At the time of writing this blog, the recommended version is</li>
     <li>Install some node packages</li>
 </ol>
@@ -36,14 +37,16 @@ npm install -g karma-ng-html2js-preprocessor
 npm install -g karma-firefox-launcher
 npm install –g karma-ie-launcher
 ```
+
 Alternatively you can run one single command to install all the packages.
 
-```
+```bash
 npm install -g karma-ie-launcher karma-chrome-launcher karma-firefox-launcher karma-ng-html2js-preprocessor karma-phantomjs-launcher karma-jasmine phantomjs karma-coverage karma-cli karma
 ```
+
 And your machine is good to go.
 
-#### Boot it up
+### Boot it up
 
 Once all the stuffs installed, navigate to your project directory(where you want to put your karma config files) in command prompt and type following command:
 
@@ -104,6 +107,7 @@ singleRun: false
 })
 }
 ```
+
 They have put nice comments above each configuration, But i would like to reiterate what they are saying.
 
 <ol>
@@ -124,14 +128,10 @@ files: [
 ]
 ```
 
- 
-
 <ol>
 </ol>
 
 <ol>After these two we can put any other library we require in our application. For example if you are using underscorejs you will add the following.</ol>
-
- 
 
 ```javascript
 files: [
@@ -141,14 +141,10 @@ files: [
 ]
 ```
 
- 
-
 <ol>
 </ol>
 
 <ol>And then you add all your script files in the order you require in your application. For example, if you have put all your angular modules in the folder js/apps/ and rest in each corresponding folders put the following.</ol>
-
- 
 
 ```javascript
 files: [
@@ -162,8 +158,6 @@ files: [
 "tests/**/*.js"
 ]
 ```
-
- 
 
 <ol>The double asterisk ** tells karma to look inside all the child folders as well. Please note that I have put services before controllers, the reason for that is we generally keep our controllers dependent on services. So it's important to have services instantiated before controllers. Any path you are putting in there, should be in the similar order. It's important to remember that all the paths are relative to the basePath you have set as the first config option. basePath becomes important if you are keeping your karma.conf file in a location such that all the paths have a common starting string. We can extract the common part in the paths to basePath
     <li><code>exclude</code>is for any files or pattern you want to exclude from the paths you mentioned in the files section.</li>
@@ -188,7 +182,7 @@ According to great [Robert Martin](https://en.wikipedia.org/wiki/Robert_Cecil_Ma
 2. You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
 3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
 
-So, to wite the test first we need to know about the requirements. Suppose our requirement is to write a little function which will filter a list of objects called person based on their age.
+So, to write the test first we need to know about the requirements. Suppose our requirement is to write a little function which will filter a list of objects called person based on their age.
 The structure of person is like this:
 
 ```javascript
@@ -204,6 +198,7 @@ We will have a function which filters the list of persons coming from server and
 ### Starting to code
 
 #### Setting up environment
+
 1. Install all the required tools as mentioned in above.
 2. I would suggest you to install one more npm package called `bower`. It helps in installing client side libraries for your app `npm install -g bower`.
 3. Open the console and go to directory of your choice where you want to keep the source.
@@ -214,32 +209,39 @@ mkdir jasmineDemo
 cd jasmineDemo
 mkdir js tests
 ```
+
 5. Install some client side libraries
+
 ```
 bower install angular angular-mocks
 ```
+
 This will install two libraries in your folder namely `angular` & `angular-mocks`. `angular-mocks` is a library created by angular team to help us mocking any dependencies to our controller, services etc.
 6. Run the karma init so that karma makes a config file for you.
+
 ```
 karma init karma.conf.js
 ```
+
 - It will ask you some questions, press tabs to change options and enter to select.
 - Let the framework be `jasmine`
 - Select no for requireJs(you can select requireJs if you use it in your project)
-- For browsers press tab untill you see `phantomJs`
-- type following 4 in when it asks for location of souce files
+- For browsers press tab until you see `phantomJs`
+- type following 4 in when it asks for location of source files
+
 ```
 bower_components/angular/angular.js
 bower_components/angular-mocks/angular-mocks.js
 js/**/*.js
 tests/**/*.js
 ```
+
 - Leave empty when it asks for any patterns being excluded.
 - Select `yes` when it asks if you want karma to watch all the files.
-With these options karma will keep watching any changes to your tests or js directory and run alll the tests again if any of the files changed. You can edit any of these configuration. For more info please refer you [previous post](https://fromcaffeinetocode.wordpress.com/2015/11/09/unit-testing-js-code-with-jasmine/) of this tutorial.
 
+With these options karma will keep watching any changes to your tests or js directory and run all the tests again if any of the files changed. You can edit any of these configuration. For more info please refer you [previous post](https://fromcaffeinetocode.wordpress.com/2015/11/09/unit-testing-js-code-with-jasmine/) of this tutorial.
 
-#### Starting to code
+#### Let's write the first test
 
 We will be creating a test first as it is mentioned above by Robert Martin
 
@@ -264,7 +266,7 @@ Create a file in the tests directory `tests/demotests.js` and write following:
 ```
 
 `describe` is a function defined in `jasmine` which is used to create a testFixture.
-You can think of it as a testClass. The first parameter to the functiion is a string which acts like the name of the testFixture(or testClass if you prefer that way).
+You can think of it as a testClass. The first parameter to the function is a string which acts like the name of the testFixture(or testClass if you prefer that way).
 `beforeEach` is a function again part of `jasmine` framework which works like setup to your tests. Any code written inside a `beforeEach` will run before each test.
 `inject` and `module` are functions defined in `angular-mocks` which helps us injecting the dependencies, and instantiating the modules respectively.
 
@@ -329,16 +331,18 @@ it('should filter people more than 18 years', function() {
     });
 });
 ```
-In the line 16 in the above snippet we have created our first test. `it` is a function in `jasmine` framework which takes two parameters. First parameter is a string which is the name of the test and the second parameter is a function which isour test.
-Any test has 3 parts
-1. Arrange - Where we setup the parameters or any other pre-conditions to our tests.
-2. Act is the actual call to the "system under test". ie. call to the method we want to test.
-3. Assert - Assertions on the result.
 
-As you might have guessed this test will fail. As we havn't created the method nor the module. You can see this test failing in the console. Do not get scared with the long error message you see.
+In the line 16 in the above snippet we have created our first test. `it` is a function in `jasmine` framework which takes two parameters. First parameter is a string which is the name of the test and the second parameter is a function which is our test.
+Any test has 3 parts
+
+1. Arrange - Where we setup the parameters or any other pre-conditions to our tests.
+1. Act is the actual call to the "system under test". ie. call to the method we want to test.
+1. Assert - Assertions on the result.
+
+As you might have guessed this test will fail. As we haven't created the method nor the module. You can see this test failing in the console. Do not get scared with the long error message you see.
 The message is just telling you it could not find the module.
 
-So now lets create our controller and moduleto make the test pass.
+So now lets create our controller and module to make the test pass.
 
 Create a file in `js/demoController.js`
 
@@ -350,4 +354,5 @@ angular.module('demoModule', []).controller('demoController', ['$scope', functio
     };
 }]);
 ```
-and just by doing this will make your test pass. You will see your tests failing if you change anything in the code or in the test if uit does not match the requirement.
+
+and just by doing this will make your test pass. You will see your tests failing if you change anything in the code or in the test if it does not match the requirement.

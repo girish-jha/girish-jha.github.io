@@ -1,18 +1,18 @@
 ---
 layout: post
-title: Aspect oriented programmming with oxygen AOP 
+title: Aspect oriented programming with oxygen AOP 
 #permalink: AOP-With-OxygenAOP/
 description: Some Description
 date: 2017-05-17 09:17:33 +05:30
 tags: "some tags here"
 ---
+# Aspect oriented programming with oxygen AOP
 
-# Oxygen.AOP #
-
-Oxygen.AOP is an [Aspect-oriented programming](https://en.wikipedia.org/wiki/Aspect-oriented_programming)
+[Oxygen.AOP](https://bitbucket.org/girishjha/oxygen.aop) is an [Aspect-oriented programming](https://en.wikipedia.org/wiki/Aspect-oriented_programming)
 framework which helps maintaining the cross cutting concerns in your codebase well segregated.
 It uses Castle.Core Dynamic proxy's capabilities to achieve it.
-### Features ###
+
+## Features
 
 * It can segregate the cross cutting concerns like logging, data validation, error detection from the business logic of your program.
 * You can decorate your business logic method with an attribute and define what happens before the method execution, after the method execution or in error scenarios.
@@ -26,7 +26,8 @@ public void PlaceOrder(Order orderObj)
 }
 ```
 
-### How do I get set up? ###
+## How do I get set up
+
 Suppose we have a method which does some very important business logic work,
 
 ```csharp
@@ -63,7 +64,7 @@ As you can see our little method beefed up with some other responsibilities whic
 
 To clean our method `MyVeryImportantBusinessLogicWork` we have to remove the code which is secondary concern of the method. AOP is the way to achieve it. While there are many AOP frameworks to do the job, `Oxygen.AOP` is just one of them.
 
-##### Configuration
+### Configuration
 
 Go to [Download](https://bitbucket.org/girishjha/oxygen.aop/downloads) page of the repository and download the binaries. Extract the zip file and refer the Oxygen.AOP.dll in your project.
 
@@ -107,8 +108,9 @@ public int MyVeryImportantBusinessLogicWork(Order order, Customer customer)
 And each of the 3 methods defined in `LoggingAspect` should be called during the execution of the `MyVeryImportantBusinessLogicWork`.
 But to make sure this happens we need to take help of `DynamicProxy` from `Castle.Core`.
 
-###### Configuring with StructureMap
-If you are using any IOC container like StructrueMap you just need to enrich your instance with the `Interceptor` object defined in `Oxygen.AOP`.
+#### Configuring with StructureMap
+
+If you are using any IOC container like StructureMap you just need to enrich your instance with the `Interceptor` object defined in `Oxygen.AOP`.
 The bootstrapper of StructureMap(version 2.6) looks like this:
 
 ```csharp
@@ -120,7 +122,7 @@ ObjectFactory.Configure(cfg =>
 });
 ```
 
-As you can see, all the instances of `IFooo` is enriched with an instance of `Interceptor`.
+As you can see, all the instances of `IFoo` is enriched with an instance of `Interceptor`.
 
 And we are done!
 
